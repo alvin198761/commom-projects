@@ -61,3 +61,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+common-permission/.idea
+common-permission/target
+*.iml
+common-permission/src/main/web-permission/package-lock.json
