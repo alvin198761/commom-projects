@@ -1,0 +1,155 @@
+package org.luna.permission.modules.system.dept;
+
+import com.google.common.collect.Lists;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * 类说明: [部门]--数据逻辑层
+ *
+ * @author 唐植超
+ * 生成日期 2020-03-01 10:01:39
+ **/
+@lombok.extern.slf4j.Slf4j
+@org.springframework.stereotype.Service
+public class DeptService {
+
+    @org.springframework.beans.factory.annotation.Autowired
+    private DeptDao deptDao; //注入收寄信息数据访问层
+
+    /**
+     * 方法说明：  新增[部门]记录
+     */
+    @org.springframework.transaction.annotation.Transactional
+    public int save(Dept dept) {
+        return this.deptDao.save(dept);
+    }
+
+    /**
+     * 方法说明：  删除部门记录(多条)
+     */
+    @org.springframework.transaction.annotation.Transactional
+    public int delete(Long id) {
+        //return this.deptDao.deleteLogic(id);//逻辑删除
+        return this.deptDao.delete(id);//物理删除
+    }
+
+    /**
+     * 方法说明：  更新部门记录
+     */
+    @org.springframework.transaction.annotation.Transactional
+    public int update(Dept dept) {
+        return this.deptDao.update(dept);
+    }
+
+    /**
+     * 方法说明：更新部门记录,不为空的都更新掉
+     */
+    @org.springframework.transaction.annotation.Transactional
+    public int updateNotNull(Dept dept) {
+        return this.deptDao.updateNotNull(dept);
+    }
+
+    /**
+     * 方法说明： 按条件查询分页部门列表
+     */
+    public org.alvin.code.gen.utils.Page<Dept> queryPage(DeptCond deptCond) {
+        deptCond.getOrder().put("t.id", "desc");
+        return this.deptDao.queryPage(deptCond);
+    }
+
+    /**
+     * 方法说明： 按条件查询不分页部门列表(使用范型)
+     */
+    public java.util.List<Dept> queryList(DeptCond deptCond) {
+        deptCond.getOrder().put("t.id", "desc");
+        return this.deptDao.queryList(deptCond);
+    }
+
+    /**
+     * 方法说明： 按条件查询一个 部门 对象
+     */
+    public Dept findOne(DeptCond deptCond) {
+        return this.deptDao.findOne(deptCond);
+    }
+
+    /**
+     * 方法说明： 按ID查找单个部门记录
+     */
+    public Dept findById(Long id) {
+        return this.deptDao.findById(id);
+    }
+
+    /**
+     * 方法说明： 按条件查询部门记录个数
+     */
+    public long queryCount(DeptCond deptCond) {
+        return this.deptDao.queryCount(deptCond);
+    }
+
+
+    /**
+     * 方法说明: 查询数据包含外键对象和显示标签
+     *
+     * @param id
+     * @return
+     */
+    public DeptFk findFkById(Long id) {
+        return this.deptDao.findFkById(id);
+    }
+
+    /**
+     * 方法说明: 查询数据包含外键对象和显示标签
+     *
+     * @param deptFkCond
+     * @return
+     */
+    public DeptFk findFkOne(DeptFkCond deptFkCond) {
+        return this.deptDao.findFkOne(deptFkCond);
+    }
+
+    /**
+     * 方法说明: 只显示标签和id的列表
+     *
+     * @param deptFkCond
+     * @return
+     */
+    public java.util.List<org.alvin.code.gen.beans.SelectOption> queryLabelList(DeptFkCond deptFkCond) {
+        deptFkCond.getOrder().put("t.id", "desc");
+        return this.deptDao.queryLabelList(deptFkCond);
+    }
+
+    /**
+     * 方法说明：按条件查询不分页部门列表 (带关系表标签)
+     */
+    public java.util.List<DeptFk> queryFkList(DeptFkCond deptFkCond) {
+        deptFkCond.getOrder().put("t.id", "desc");
+        return this.deptDao.queryFkList(deptFkCond);
+    }
+
+    /**
+     * 方法说明：按条件查询分页部门列表
+     */
+    public org.alvin.code.gen.utils.Page<DeptFk> queryFkPage(DeptFkCond deptFkCond) {
+        deptFkCond.getOrder().put("t.id", "desc");
+        return this.deptDao.queryFkPage(deptFkCond);
+    }
+
+    public List<Dept> queryTreeDataList(DeptCond deptCond) {
+        deptCond.getOrder().put("t.id", "asc");
+        List<Dept> list = this.deptDao.queryList(deptCond);
+        for (Dept dept : list) {
+            for (Dept subDept : list) {
+                if (dept.getId().longValue() != subDept.getPid().longValue()) {
+                    continue;
+                }
+                if (dept.getChildren() == null) {
+                    dept.setChildren(Lists.newArrayList());
+                }
+                dept.getChildren().add(subDept);
+            }
+        }
+        return list.stream().filter(item -> item.getPid() == 0).collect(Collectors.toList());
+    }
+}
