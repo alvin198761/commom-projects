@@ -34,7 +34,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8090',//开发
+        target: 'http://localhost:8092',//开发
         // ws: true,
         changeOrigin: true,
         secure: false

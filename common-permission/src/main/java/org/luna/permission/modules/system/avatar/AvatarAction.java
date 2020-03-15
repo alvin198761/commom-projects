@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.avatar;
 /**
 * 类说明: 系统用户头像--Swagger控制器类 ,使用requestbody 实现
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-15 17:28:25
 **/
 @lombok.extern.slf4j.Slf4j
 @io.swagger.annotations.Api(value = "[系统用户头像]控制器", description = "[系统用户头像]相关操作")

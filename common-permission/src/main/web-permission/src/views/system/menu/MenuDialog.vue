@@ -2,13 +2,24 @@
     <el-dialog :title="title" :visible.sync="show" :close-on-click-modal="false" :close-on-press-escape="false"
                width="50%">
         <el-form :model="form" ref="form" :rules="rules" label-width="100px">
-            <el-form-item label="菜单类型">
-                <el-radio-group v-model="form.type" size="small">
-                    <el-radio-button :label="1">目录</el-radio-button>
-                    <el-radio-button :label="2">菜单</el-radio-button>
-                    <el-radio-button :label="3">按钮</el-radio-button>
-                </el-radio-group>
-            </el-form-item>
+            <el-row :gutter="10">
+                <el-col :span="12">
+                    <el-form-item label="菜单类型">
+                        <el-radio-group v-model="form.type" size="small">
+                            <el-radio-button :label="1">目录</el-radio-button>
+                            <el-radio-button :label="2">菜单</el-radio-button>
+                            <el-radio-button :label="3">按钮</el-radio-button>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item label="所属系统">
+                        <el-select :value="form.app_code" size="small" clearable style="width: 100%">
+                            <el-option :value="1">系统</el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
             <el-form-item label="菜单图标">
                 <el-popover
                         v-model="showIconChooser"

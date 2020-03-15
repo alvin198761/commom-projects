@@ -3,13 +3,14 @@
                width="30%">
         <el-form :model="form" ref="form" :rules="rules" label-width="100px">
             <el-form-item label="字典标签">
-                <el-input size="small" clearable="" placeholder="请输入字典标签"></el-input>
+                <el-input size="small" clearable placeholder="请输入字典标签" v-model="form.label"></el-input>
             </el-form-item>
             <el-form-item label="字典值">
-                <el-input size="small" clearable="" placeholder="请输入字典值"></el-input>
+                <el-input size="small" clearable placeholder="请输入字典值" v-model="form.value"></el-input>
             </el-form-item>
             <el-form-item label="排序">
-                <el-input-number size="small" controlsPosition="right" clearable placeholder="请输入排序"
+                <el-input size="small" controlsPosition="right" :min="1" :max="100" clearable type="number"
+                                 placeholder="请输入排序 1-100" v-model.number="form.sort"
                                  style="width: 100%"/>
             </el-form-item>
         </el-form>
@@ -31,7 +32,17 @@
                 saveLoading: false,
                 form: this.initForm(),
                 mode: null,
-                rules: {},
+                rules: {
+                    label: [
+                        {required: true, type: 'string', message: '请输入字典标签', trigger: 'blur'},
+                    ],
+                    value: [
+                        {required: true, type: 'string', message: '请输入字典值', trigger: 'blur'},
+                    ],
+                    sort: [
+                        {required: true, type: 'number', message: '请输入字典排序', trigger: 'blur'},
+                    ]
+                },
             }
         },
         computed: {},
@@ -40,29 +51,33 @@
         },
         methods: {
             selectIcon(icon) {
-                this.showIconChooser = false;
                 this.form = {...this.form, icon: icon};
             },
             initForm() {
                 return {
-                    type: 1,
-                    icon: null,
+                    id: null,//  id
+                    label: null,//  字典标签
+                    value: null,//  字典值
+                    sort: null,//  排序
+                    dictId: null,//  字典id
+                    createTime: null,//  创建日期
                 }
             },
             initData() {
                 //需要加载数据的方法
             },
-            showAddDialog() {
+            showAddDialog(dictId) {
                 this.title = "添加字典";
                 this.mode = 'save';
                 this.form = this.initForm();
+                this.form = {...this.form, dictId: dictId}
                 this.initData();
                 this.show = true;
             },
             showEditDialog(row) {
                 this.title = "修改字典";
                 this.mode = 'update';
-                this.form = row;
+                this.form = {...row};
                 this.initData();
                 this.show = true;
             },
@@ -73,14 +88,14 @@
                         return;
                     }
                     that.saveLoading = true;
-                    that.$postBody("/api/user/" + that.mode, that.form).then(res => {
-                        that.show = false;
+                    that.$postBody("/api/detail/" + that.mode, that.form).then(res => {
                         that.saveLoading = false;
                         if (res.code !== 0) {
-                            that.$message.success(res.errorMsg);
+                            that.$message.error(res.errorMsg);
                             return;
                         }
                         that.$message.success(that.title + "成功!");
+                        that.show = false;
                         that.refresh();
                     })
                 });

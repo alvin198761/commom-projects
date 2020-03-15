@@ -1,6 +1,8 @@
 package org.luna.permission.modules.system.dept;
 
 import com.google.common.collect.Lists;
+import org.luna.permission.modules.beans.TreeNodeBean;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +11,7 @@ import java.util.stream.Collectors;
  * 类说明: [部门]--数据逻辑层
  *
  * @author 唐植超
- * 生成日期 2020-03-01 10:01:39
+ * 生成日期 2020-03-09 22:33:12
  **/
 @lombok.extern.slf4j.Slf4j
 @org.springframework.stereotype.Service
@@ -136,12 +138,19 @@ public class DeptService {
         return this.deptDao.queryFkPage(deptFkCond);
     }
 
-    public List<Dept> queryTreeDataList(DeptCond deptCond) {
-        deptCond.getOrder().put("t.id", "asc");
-        List<Dept> list = this.deptDao.queryList(deptCond);
-        for (Dept dept : list) {
-            for (Dept subDept : list) {
-                if (dept.getId().longValue() != subDept.getPid().longValue()) {
+    /**
+     * 方法说明：树节点展示部门
+     */
+    public List<TreeNodeBean> queryTreeList(DeptCond cond) {
+        List<TreeNodeBean> depts = this.deptDao.queryList(cond).parallelStream().map(item ->{
+            TreeNodeBean node = new TreeNodeBean();
+            node.setValue(item.getId());
+            node.setPid(item.getPid());
+            return node;
+        }).collect(Collectors.toList());
+        for (TreeNodeBean dept : depts) {
+            for (TreeNodeBean subDept : depts) {
+                if (subDept.getPid().longValue() != dept.getValue().longValue()) {
                     continue;
                 }
                 if (dept.getChildren() == null) {
@@ -149,7 +158,8 @@ public class DeptService {
                 }
                 dept.getChildren().add(subDept);
             }
+            dept.setHasChildren(dept.getChildren() != null);
         }
-        return list.stream().filter(item -> item.getPid() == 0).collect(Collectors.toList());
+        return depts.parallelStream().filter(item -> item.getPid() == 0).collect(Collectors.toList());
     }
 }

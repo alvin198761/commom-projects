@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.detail;
 /**
 * 类说明: 数据字典详情--查询条件实体类
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.Setter
 @lombok.Getter

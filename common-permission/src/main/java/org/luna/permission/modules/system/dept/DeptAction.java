@@ -1,16 +1,12 @@
 package org.luna.permission.modules.system.dept;
 
-import org.alvin.code.gen.beans.RestfullResp;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
+import org.luna.permission.modules.beans.TreeNodeBean;
 
 /**
  * 类说明: 部门--Swagger控制器类 ,使用requestbody 实现
  *
  * @author 唐植超
- * 生成日期 2020-03-01 10:01:39
+ * 生成日期 2020-03-09 22:33:12
  **/
 @lombok.extern.slf4j.Slf4j
 @io.swagger.annotations.Api(value = "[部门]控制器", description = "[部门]相关操作")
@@ -231,12 +227,21 @@ public class DeptAction {
         return new org.alvin.code.gen.beans.RestfullResp<>(this.deptService.queryFkPage(fkCond));
     }
 
+
     /**
-     * 方法说明：属性结构的菜单
+     * 方法说明： 按条件查询不分页[部门]列表
      */
-    @PostMapping("queryTreeDataList")
-    public RestfullResp<List<Dept>> queryTreeDataList(@RequestBody DeptCond deptCond){
-        return new RestfullResp<>(this.deptService.queryTreeDataList(deptCond));
+    @io.swagger.annotations.ApiOperation(value = "按条件查询不分页[部门]列表", notes = "返回不分页[部门]列表")
+    @io.swagger.annotations.ApiImplicitParams(
+            {
+                    @io.swagger.annotations.ApiImplicitParam(paramType = "body", dataType = "DeptCond", name = "cond", value = "部门", required = true)
+            })
+    @io.swagger.annotations.ApiResponses({
+            @io.swagger.annotations.ApiResponse(code = 0, message = "操作成功")
+    })
+    @org.springframework.web.bind.annotation.PostMapping("queryTreeList")
+    public org.alvin.code.gen.beans.RestfullResp<java.util.List<TreeNodeBean>> queryTreeList(@org.springframework.web.bind.annotation.RequestBody DeptCond cond) {
+        return new org.alvin.code.gen.beans.RestfullResp<>(this.deptService.queryTreeList(cond));
     }
 
 }

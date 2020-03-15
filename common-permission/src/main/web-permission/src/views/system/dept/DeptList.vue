@@ -16,7 +16,7 @@
                     </el-date-picker>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="success" size="small" icon="el-icon-search">搜索</el-button>
+                    <el-button type="success" size="small" icon="el-icon-search" :loading="loading" @click="globalRefresh">搜索</el-button>
                     <el-button type="warning" size="small" icon="el-icon-refresh-left">重置</el-button>
                 </el-form-item>
             </div>
@@ -43,7 +43,7 @@
             </el-row>
         </el-form>
         <div style="margin-top: 20px;">
-            <el-table size="small" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" row-key="id">
+            <el-table size="small" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" :data="dataList" row-key="id">
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column label="名称" width="500"></el-table-column>
                 <el-table-column label="状态" width="200">
@@ -61,15 +61,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <br/>
-            <div style="text-align: right" v-if="page.total > 0">
-                <el-pagination small layout="total,sizes,prev, pager, next" :current-page="page"
-                               :total="page.total"
-                               @current-change="(curr) => {this.page = {...this.page,page: curr} ; this.refresh();}"
-                               :page-sizes="[10, 15, 20, 30,50, 100]"
-                               @size-change="(s) => {this.page = {...this.page,size: curr} ; this.refresh();}"
-                               :page-size="size"></el-pagination>
-            </div>
+
         </div>
         <DeptDialog ref="dialog" :refresh="globalRefresh"></DeptDialog>
     </div>
@@ -87,53 +79,7 @@
                 searchForm: {
                     status: 0
                 },
-                page: {
-                    page: 1,
-                    size: 10,
-                    total: 0
-                },
                 dataList: [],
-                roleTreeDataList: [
-                    {
-                        label: '一级 1',
-                        children: [{
-                            label: '二级 1-1',
-                            children: [{
-                                label: '三级 1-1-1'
-                            }]
-                        }]
-                    }, {
-                        label: '一级 2',
-                        children: [{
-                            label: '二级 2-1',
-                            children: [{
-                                label: '三级 2-1-1'
-                            }]
-                        }, {
-                            label: '二级 2-2',
-                            children: [{
-                                label: '三级 2-2-1'
-                            }]
-                        }]
-                    }, {
-                        label: '一级 3',
-                        children: [{
-                            label: '二级 3-1',
-                            children: [{
-                                label: '三级 3-1-1'
-                            }]
-                        }, {
-                            label: '二级 3-2',
-                            children: [{
-                                label: '三级 3-2-1'
-                            }]
-                        }]
-                    }
-                ],
-                defaultProps: {
-                    children: 'children',
-                    label: 'label'
-                }
             }
         },
         computed: {},
@@ -142,16 +88,15 @@
         },
         methods: {
             initData() {
+                this.globalRefresh();
             },
             globalRefresh() {
-                this.page = {page: 0, size: 10, total: 0};
                 this.refresh();
             },
             refresh() {
                 const that = this;
                 that.loading = true;
-                const requestData = {...that.searchForm, ...that.page};
-                that.$postBody("/api/dept/queryPage", {...that.searchForm, ...that.page}).then(res => {
+                that.$postBody("/api/dept/queryTreeList", {...that.searchForm}).then(res => {
                     that.loading = false;
                     if (res.code !== 0) {
                         that.$message.error(res.errorMsg);
@@ -166,9 +111,9 @@
             editDialog(row) {
                 this.$refs["dialog"].showEditDialog(row);
             },
-            deptTreeNodeClick(data) {
-                console.log(data)
-            }
+           delDept(id){
+
+           }
         }
     }
 </script>

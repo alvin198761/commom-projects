@@ -4,7 +4,7 @@ package org.luna.permission.modules.system.depts;
 * 类说明: [角色部门关联]--数据访问层
  * @类说明: 收寄信息--
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.extern.slf4j.Slf4j
 @org.springframework.stereotype.Repository
@@ -14,17 +14,15 @@ public class DeptsDao extends org.alvin.code.gen.beans.BaseDao {
     * 方法说明：  新增角色部门关联记录
     */
     public int save(Depts vo) {
-	   String sql = "INSERT INTO roles_depts () VALUES ()";
-	   org.alvin.code.gen.beans.SaveKeyObj obj = saveKey(vo, sql, "role_id");
-       vo.setRoleId((Long)obj.getKey());
-       return obj.getRes();
+	   String sql = "INSERT INTO roles_depts (role_id,dept_id) VALUES (?,?)";
+	   return this.jdbcTemplate.update(sql,new Object[]{vo.getRoleId(),vo.getDeptId()});
     }
     
     /**
     * 方法说明： 批量插入角色部门关联记录
     */
     public int[] insertBatch(java.util.List<Depts> list) {
-	   String sql = "INSERT INTO roles_depts () VALUES ()";
+	   String sql = "INSERT INTO roles_depts (role_id,dept_id) VALUES (:roleId,deptId)";
        return batchOperate(list, sql);
     }
     
@@ -40,11 +38,7 @@ public class DeptsDao extends org.alvin.code.gen.beans.BaseDao {
     * 方法说明：更新角色部门关联记录
     */
     public int update(Depts vo) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("UPDATE roles_depts SET  ");
-        sql.append(" WHERE role_id=? ");
-        Object[] params = {,vo.getRoleId()};
-        return jdbcTemplate.update(sql.toString(), params);
+       return 0;
       }
 
 

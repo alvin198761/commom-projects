@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.menu;
 /**
 * @类说明: menu--实体类
 * @author: 唐植超
-* @date : 2020-03-01 10:01:39
+* @date : 2020-03-09 22:33:12
 **/
 @lombok.Setter
 @lombok.Getter
@@ -28,6 +28,7 @@ public class Menu {
         private java.util.Date createTime ;//  创建日期
         private String permission ;//  权限
         private Integer type ;//  类型
+        private String appCode ;//  系统码
     
     //此处可添加查询显示辅助字段
 

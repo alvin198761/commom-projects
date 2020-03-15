@@ -4,7 +4,7 @@ package org.luna.permission.modules.system.menus;
 * 类说明: [角色菜单关联]--数据访问层
  * @类说明: 收寄信息--
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.extern.slf4j.Slf4j
 @org.springframework.stereotype.Repository
@@ -14,17 +14,15 @@ public class MenusDao extends org.alvin.code.gen.beans.BaseDao {
     * 方法说明：  新增角色菜单关联记录
     */
     public int save(Menus vo) {
-	   String sql = "INSERT INTO roles_menus () VALUES ()";
-	   org.alvin.code.gen.beans.SaveKeyObj obj = saveKey(vo, sql, "menu_id");
-       vo.setMenuId((Long)obj.getKey());
-       return obj.getRes();
+	   String sql = "INSERT INTO roles_menus (menu_id,role_id) VALUES (?,?)";
+	  return this.jdbcTemplate.update(sql,new Object[]{vo.getMenuId(),vo.getRoleId()});
     }
     
     /**
     * 方法说明： 批量插入角色菜单关联记录
     */
     public int[] insertBatch(java.util.List<Menus> list) {
-	   String sql = "INSERT INTO roles_menus () VALUES ()";
+	   String sql = "INSERT INTO roles_menus (menu_id,role_id) VALUES (:menuId,:roleId)";
        return batchOperate(list, sql);
     }
     
@@ -40,11 +38,7 @@ public class MenusDao extends org.alvin.code.gen.beans.BaseDao {
     * 方法说明：更新角色菜单关联记录
     */
     public int update(Menus vo) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("UPDATE roles_menus SET  ");
-        sql.append(" WHERE menu_id=? ");
-        Object[] params = {,vo.getMenuId()};
-        return jdbcTemplate.update(sql.toString(), params);
+       return 0;
       }
 
 

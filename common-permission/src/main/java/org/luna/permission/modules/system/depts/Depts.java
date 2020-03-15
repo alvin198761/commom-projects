@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.depts;
 /**
 * @类说明: 角色部门关联--实体类
 * @author: 唐植超
-* @date : 2020-03-01 10:01:39
+* @date : 2020-03-09 22:33:12
 **/
 @lombok.Setter
 @lombok.Getter

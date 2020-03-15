@@ -20,7 +20,8 @@ axios.interceptors.request.use(
         return config
     },
     error => {
-        return Promise.reject(error)//es6 报错回调
+        debugger
+        return Promise.resolve(error)//es6 报错回调
     }
 )
 
@@ -47,7 +48,13 @@ export function postByExport(url, data = {}) {
         }).then(response => {
             processResponse(response,resolve,reject);
         }, error => {
-            processResponse(error.response,resolve,reject);
+            var resp = {
+                data: {
+                    code: error.response.data.status,
+                    errorMsg: error.response.data.message
+                }
+            }
+            processResponse(resp,resolve,reject);
         })
     })
 }
@@ -64,7 +71,13 @@ export function postBodyByExport(url, data = {}) {
         }).then(response => {
             processResponse(response,resolve,reject);
         }, error => {
-            processResponse(error.response,resolve,reject);
+            var resp = {
+                data: {
+                    code: error.response.data.status,
+                    errorMsg: error.response.data.message
+                }
+            }
+            processResponse(resp,resolve,reject);
         })
     })
 }
@@ -78,7 +91,13 @@ export function post(url, data = {}) {
         }).then(response => {
             processResponse(response,resolve,reject);
         }, error => {
-            processResponse(error.response,resolve,reject);
+            var resp = {
+                data: {
+                    code: error.response.data.status,
+                    errorMsg: error.response.data.message
+                }
+            }
+            processResponse(resp ,resolve,reject);
         })
     })
 }
@@ -93,7 +112,13 @@ export function postBody(url, data = {}) {
         }).then(response => {
             processResponse(response,resolve,reject);
         }, error => {
-            processResponse(error.response,resolve,reject);
+            var resp = {
+                data: {
+                    code: error.response.data.status,
+                    errorMsg: error.response.data.message
+                }
+            }
+            processResponse(resp,resolve,reject);
         })
     })
 }
@@ -106,7 +131,7 @@ function processResponse(response,resolve,reject) {
         return ;
     }
     if (response.data.code === 301) {
-        MessageBox.alert(response.data.replydata.msg, '提示', {
+        MessageBox.alert(response.data.errorMsg, '提示', {
             confirmButtonText: '确定',
             callback: function () {
                 window.location.href = '/';

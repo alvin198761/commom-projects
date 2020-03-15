@@ -1,9 +1,11 @@
 package org.luna.permission.modules.system.dict;
 
+import java.util.Date;
+
 /**
 * 类说明: 数据字典--Swagger控制器类 ,使用requestbody 实现
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.extern.slf4j.Slf4j
 @io.swagger.annotations.Api(value = "[数据字典]控制器", description = "[数据字典]相关操作")
@@ -27,6 +29,7 @@ public class DictAction {
     })
     @org.springframework.web.bind.annotation.PostMapping("save")
     public org.alvin.code.gen.beans.RestfullResp<Integer> save(@org.springframework.web.bind.annotation.RequestBody Dict dict) {
+        dict.setCreateTime(new Date());
         return new org.alvin.code.gen.beans.RestfullResp<>(this.dictService.save(dict));
     }
 

@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.role;
 /**
 * 类说明: 角色表--Swagger控制器类 ,使用requestbody 实现
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.extern.slf4j.Slf4j
 @io.swagger.annotations.Api(value = "[角色表]控制器", description = "[角色表]相关操作")

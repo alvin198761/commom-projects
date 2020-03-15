@@ -4,7 +4,7 @@ package org.luna.permission.modules.system.avatar;
 * 类说明: [系统用户头像]--数据访问层
  * @类说明: 收寄信息--
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-15 17:28:25
 **/
 @lombok.extern.slf4j.Slf4j
 @org.springframework.stereotype.Repository
@@ -14,7 +14,7 @@ public class AvatarDao extends org.alvin.code.gen.beans.BaseDao {
     * 方法说明：  新增系统用户头像记录
     */
     public int save(Avatar vo) {
-	   String sql = "INSERT INTO user_avatar (real_name,path,size,create_time) VALUES (:realName,:path,:size,:createTime)";
+	   String sql = "INSERT INTO user_avatar (real_name,path,file_size,create_time) VALUES (:realName,:path,:fileSize,:createTime)";
 	   org.alvin.code.gen.beans.SaveKeyObj obj = saveKey(vo, sql, "id");
        vo.setId((Long)obj.getKey());
        return obj.getRes();
@@ -24,7 +24,7 @@ public class AvatarDao extends org.alvin.code.gen.beans.BaseDao {
     * 方法说明： 批量插入系统用户头像记录
     */
     public int[] insertBatch(java.util.List<Avatar> list) {
-	   String sql = "INSERT INTO user_avatar (real_name,path,size,create_time) VALUES (:realName,:path,:size,:createTime)";
+	   String sql = "INSERT INTO user_avatar (real_name,path,file_size,create_time) VALUES (:realName,:path,:fileSize,:createTime)";
        return batchOperate(list, sql);
     }
     
@@ -41,9 +41,9 @@ public class AvatarDao extends org.alvin.code.gen.beans.BaseDao {
     */
     public int update(Avatar vo) {
         StringBuilder sql = new StringBuilder();
-        sql.append("UPDATE user_avatar SET real_name=?,path=?,size=?,create_time=? ");
+        sql.append("UPDATE user_avatar SET real_name=?,path=?,file_size=?,create_time=? ");
         sql.append(" WHERE id=? ");
-        Object[] params = {vo.getRealName(),vo.getPath(),vo.getSize(),vo.getCreateTime(),vo.getId()};
+        Object[] params = {vo.getRealName(),vo.getPath(),vo.getFileSize(),vo.getCreateTime(),vo.getId()};
         return jdbcTemplate.update(sql.toString(), params);
       }
 
@@ -66,9 +66,9 @@ public class AvatarDao extends org.alvin.code.gen.beans.BaseDao {
             fields.add(" path = ? ");
             values.add(vo.getPath());
         }   
-                if(vo.getSize() != null){
-            fields.add(" size = ? ");
-            values.add(vo.getSize());
+                if(vo.getFileSize() != null){
+            fields.add(" file_size = ? ");
+            values.add(vo.getFileSize());
         }   
                 if(vo.getCreateTime() != null){
             fields.add(" create_time = ? ");
@@ -164,7 +164,7 @@ public class AvatarDao extends org.alvin.code.gen.beans.BaseDao {
     */
     public String getSelectedItems(AvatarCond cond){
         if(cond == null || cond.getSelectedFields() == null || cond.getSelectedFields().isEmpty()){
-        return "t.id,t.real_name,t.path,t.size,t.create_time"; //默认所有字段
+        return "t.id,t.real_name,t.path,t.file_size,t.create_time"; //默认所有字段
         }
         return com.google.common.base.Joiner.on(",").join(cond.getSelectedFields());
     }
@@ -263,7 +263,7 @@ public class AvatarDao extends org.alvin.code.gen.beans.BaseDao {
     public String getFkSelectedItems(AvatarCond cond) {
         if (cond == null || cond.getSelectedFields() == null || cond.getSelectedFields().isEmpty()) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("t.id,t.real_name,t.path,t.size,t.create_time");
+			sb.append("t.id,t.real_name,t.path,t.file_size,t.create_time");
 			            return sb.toString(); //默认所有字段
         }
         return com.google.common.base.Joiner.on(",").join(cond.getSelectedFields());

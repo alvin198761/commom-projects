@@ -4,7 +4,7 @@ package org.luna.permission.modules.system.menu;
 * 类说明: [menu]--数据访问层
  * @类说明: 收寄信息--
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.extern.slf4j.Slf4j
 @org.springframework.stereotype.Repository
@@ -14,7 +14,7 @@ public class MenuDao extends org.alvin.code.gen.beans.BaseDao {
     * 方法说明：  新增menu记录
     */
     public int save(Menu vo) {
-	   String sql = "INSERT INTO menu (i_frame,name,component,pid,sort,icon,path,cache,hidden,component_name,create_time,permission,type) VALUES (:iFrame,:name,:component,:pid,:sort,:icon,:path,:cache,:hidden,:componentName,:createTime,:permission,:type)";
+	   String sql = "INSERT INTO menu (i_frame,name,component,pid,sort,icon,path,cache,hidden,component_name,create_time,permission,type,app_code) VALUES (:iFrame,:name,:component,:pid,:sort,:icon,:path,:cache,:hidden,:componentName,:createTime,:permission,:type,:appCode)";
 	   org.alvin.code.gen.beans.SaveKeyObj obj = saveKey(vo, sql, "id");
        vo.setId((Long)obj.getKey());
        return obj.getRes();
@@ -24,7 +24,7 @@ public class MenuDao extends org.alvin.code.gen.beans.BaseDao {
     * 方法说明： 批量插入menu记录
     */
     public int[] insertBatch(java.util.List<Menu> list) {
-	   String sql = "INSERT INTO menu (i_frame,name,component,pid,sort,icon,path,cache,hidden,component_name,create_time,permission,type) VALUES (:iFrame,:name,:component,:pid,:sort,:icon,:path,:cache,:hidden,:componentName,:createTime,:permission,:type)";
+	   String sql = "INSERT INTO menu (i_frame,name,component,pid,sort,icon,path,cache,hidden,component_name,create_time,permission,type,app_code) VALUES (:iFrame,:name,:component,:pid,:sort,:icon,:path,:cache,:hidden,:componentName,:createTime,:permission,:type,:appCode)";
        return batchOperate(list, sql);
     }
     
@@ -41,9 +41,9 @@ public class MenuDao extends org.alvin.code.gen.beans.BaseDao {
     */
     public int update(Menu vo) {
         StringBuilder sql = new StringBuilder();
-        sql.append("UPDATE menu SET i_frame=?,name=?,component=?,pid=?,sort=?,icon=?,path=?,cache=?,hidden=?,component_name=?,create_time=?,permission=?,type=? ");
+        sql.append("UPDATE menu SET i_frame=?,name=?,component=?,pid=?,sort=?,icon=?,path=?,cache=?,hidden=?,component_name=?,create_time=?,permission=?,type=?,app_code=? ");
         sql.append(" WHERE id=? ");
-        Object[] params = {vo.getIFrame(),vo.getName(),vo.getComponent(),vo.getPid(),vo.getSort(),vo.getIcon(),vo.getPath(),vo.getCache(),vo.getHidden(),vo.getComponentName(),vo.getCreateTime(),vo.getPermission(),vo.getType(),vo.getId()};
+        Object[] params = {vo.getIFrame(),vo.getName(),vo.getComponent(),vo.getPid(),vo.getSort(),vo.getIcon(),vo.getPath(),vo.getCache(),vo.getHidden(),vo.getComponentName(),vo.getCreateTime(),vo.getPermission(),vo.getType(),vo.getAppCode(),vo.getId()};
         return jdbcTemplate.update(sql.toString(), params);
       }
 
@@ -109,6 +109,10 @@ public class MenuDao extends org.alvin.code.gen.beans.BaseDao {
                 if(vo.getType() != null){
             fields.add(" type = ? ");
             values.add(vo.getType());
+        }   
+                if(vo.getAppCode() != null){
+            fields.add(" app_code = ? ");
+            values.add(vo.getAppCode());
         }   
                 
         if(fields.isEmpty()){
@@ -200,7 +204,7 @@ public class MenuDao extends org.alvin.code.gen.beans.BaseDao {
     */
     public String getSelectedItems(MenuCond cond){
         if(cond == null || cond.getSelectedFields() == null || cond.getSelectedFields().isEmpty()){
-        return "t.id,t.i_frame,t.name,t.component,t.pid,t.sort,t.icon,t.path,t.cache,t.hidden,t.component_name,t.create_time,t.permission,t.type"; //默认所有字段
+        return "t.id,t.i_frame,t.name,t.component,t.pid,t.sort,t.icon,t.path,t.cache,t.hidden,t.component_name,t.create_time,t.permission,t.type,t.app_code"; //默认所有字段
         }
         return com.google.common.base.Joiner.on(",").join(cond.getSelectedFields());
     }
@@ -299,7 +303,7 @@ public class MenuDao extends org.alvin.code.gen.beans.BaseDao {
     public String getFkSelectedItems(MenuCond cond) {
         if (cond == null || cond.getSelectedFields() == null || cond.getSelectedFields().isEmpty()) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("t.id,t.i_frame,t.name,t.component,t.pid,t.sort,t.icon,t.path,t.cache,t.hidden,t.component_name,t.create_time,t.permission,t.type");
+			sb.append("t.id,t.i_frame,t.name,t.component,t.pid,t.sort,t.icon,t.path,t.cache,t.hidden,t.component_name,t.create_time,t.permission,t.type,t.app_code");
 			            return sb.toString(); //默认所有字段
         }
         return com.google.common.base.Joiner.on(",").join(cond.getSelectedFields());

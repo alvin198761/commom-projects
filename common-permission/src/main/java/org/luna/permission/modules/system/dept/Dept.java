@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @类说明: 部门--实体类
  * @author: 唐植超
- * @date : 2020-03-01 10:01:39
+ * @date : 2020-03-09 22:33:12
  **/
 @lombok.Setter
 @lombok.Getter
@@ -23,6 +23,6 @@ public class Dept {
     private java.util.Date createTime;//  创建日期
 
     //此处可添加查询显示辅助字段
-    private List<Dept> children;
+
 
 }

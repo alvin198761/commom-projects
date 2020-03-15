@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.roles;
 /**
 * 类说明: 用户角色关联--Swagger控制器类 ,使用requestbody 实现
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.extern.slf4j.Slf4j
 @io.swagger.annotations.Api(value = "[用户角色关联]控制器", description = "[用户角色关联]相关操作")
@@ -38,7 +38,7 @@ public class RolesAction {
     @io.swagger.annotations.ApiImplicitParams({@io.swagger.annotations.ApiImplicitParam(name = "userId", value = "[用户角色关联]的主键", required = true, dataType = "array", paramType = "query")})
     @org.springframework.web.bind.annotation.PostMapping("delete")
     public org.alvin.code.gen.beans.RestfullResp<Integer> delete(@org.springframework.web.bind.annotation.RequestParam("userId") Long userId) {
-        return new org.alvin.code.gen.beans.RestfullResp<>(this.rolesService.delete(id));
+        return new org.alvin.code.gen.beans.RestfullResp<>(this.rolesService.delete(userId));
     }
 
 
@@ -145,7 +145,7 @@ public class RolesAction {
     @io.swagger.annotations.ApiImplicitParams({@io.swagger.annotations.ApiImplicitParam(name = "userId", value = "[用户角色关联]的主键", required = true, dataType = "Long", paramType = "query")})
     @org.springframework.web.bind.annotation.PostMapping("findById")
     public org.alvin.code.gen.beans.RestfullResp<Roles> findById(@org.springframework.web.bind.annotation.RequestParam("id") Long userId) {
-        return new org.alvin.code.gen.beans.RestfullResp<>(this.rolesService.findById(id));
+        return new org.alvin.code.gen.beans.RestfullResp<>(this.rolesService.findById(userId));
     }
 
     /**
@@ -155,7 +155,7 @@ public class RolesAction {
     @io.swagger.annotations.ApiImplicitParams({@io.swagger.annotations.ApiImplicitParam(name = "userId", value = "[用户角色关联]的主键", required = true, dataType = "Long", paramType = "query")})
     @org.springframework.web.bind.annotation.PostMapping("findFkById")
     public org.alvin.code.gen.beans.RestfullResp<RolesFk> findFkById(@org.springframework.web.bind.annotation.RequestParam("userId") Long userId) {
-        return  new org.alvin.code.gen.beans.RestfullResp<>(this.rolesService.findFkById(id));
+        return  new org.alvin.code.gen.beans.RestfullResp<>(this.rolesService.findFkById(userId));
     }
 
     /**

@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.job;
 /**
 * 类说明: [岗位]--数据逻辑层
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.extern.slf4j.Slf4j
 @org.springframework.stereotype.Service

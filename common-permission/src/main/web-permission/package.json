@@ -9,7 +9,7 @@
     "buildVueCli": "vue-cli-service build",
     "mock": "puer --no-launch -r proxy.config.js",
     "copyResToDist": "node ./shell/CopyResourceToDist.js",
-    "build": "npm-run-all -l -p -s buildVueCli copyResToDist",
+    "build": "npm-run-all -l -p -s changeToProd buildVueCli copyResToDist",
     "startForDev": "npm-run-all -l -p -s changeToDev serve",
     "startForProd": "npm-run-all -l -p -s changeToProd serve"
   },

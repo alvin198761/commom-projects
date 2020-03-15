@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.avatar;
 /**
 * 类说明: 系统用户头像--查询条件实体类
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-15 17:28:25
 **/
 @lombok.Setter
 @lombok.Getter
@@ -23,7 +23,7 @@ public class AvatarCond extends org.alvin.code.gen.beans.BaseCondition {
                     add(this.id , " AND t.id = ? " );
                             add(this.realName , " AND t.real_name LIKE ? " ,3);
 		                    add(this.path , " AND t.path LIKE ? " ,3);
-		                    add(this.size , " AND t.size LIKE ? " ,3);
+		                    add(this.fileSize , " AND t.file_size LIKE ? " ,3);
 		            		add(this.createTime , " AND t.create_time = ? " );
 		if(this.createTimeStart != null){
 			add(org.alvin.utils.DateUtil.setStart(this.createTimeStart ), " AND t.create_time >= ? "); //创建时间开始
@@ -41,7 +41,7 @@ public class AvatarCond extends org.alvin.code.gen.beans.BaseCondition {
 		    	@io.swagger.annotations.ApiModelProperty(value = "路径", dataType = "java.lang.String")
     private  String  path ;//  路径
 		    	@io.swagger.annotations.ApiModelProperty(value = "大小", dataType = "java.lang.String")
-    private  String  size ;//  大小
+    private  String  fileSize ;//  大小
 		    	@io.swagger.annotations.ApiModelProperty(value = "创建时间", dataType = "java.util.Date")
     private  java.util.Date  createTime ;//  创建时间
 					//日期查询范围

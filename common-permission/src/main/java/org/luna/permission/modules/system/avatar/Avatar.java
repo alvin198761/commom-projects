@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.avatar;
 /**
 * @类说明: 系统用户头像--实体类
 * @author: 唐植超
-* @date : 2020-03-01 10:01:39
+* @date : 2020-03-15 17:28:25
 **/
 @lombok.Setter
 @lombok.Getter
@@ -17,7 +17,7 @@ public class Avatar {
         private Long id ;//  id
         private String realName ;//  真实文件名
         private String path ;//  路径
-        private String size ;//  大小
+        private String fileSize ;//  大小
         private java.util.Date createTime ;//  创建时间
     
     //此处可添加查询显示辅助字段

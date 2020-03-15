@@ -4,7 +4,7 @@ package org.luna.permission.modules.system.role;
 * 类说明: [角色表]--数据访问层
  * @类说明: 收寄信息--
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.extern.slf4j.Slf4j
 @org.springframework.stereotype.Repository

@@ -3,7 +3,7 @@ package org.luna.permission.modules.system.menu;
 /**
 * 类说明: menu--查询条件实体类
 * @author 唐植超
-* 生成日期 2020-03-01 10:01:39
+* 生成日期 2020-03-09 22:33:12
 **/
 @lombok.Setter
 @lombok.Getter
@@ -40,7 +40,8 @@ public class MenuCond extends org.alvin.code.gen.beans.BaseCondition {
 		}
                             add(this.permission , " AND t.permission LIKE ? " ,3);
 		                    add(this.type , " AND t.type = ? " );
-                }
+                            add(this.appCode , " AND t.app_code LIKE ? " ,3);
+		        }
 
     //属性
     	@io.swagger.annotations.ApiModelProperty(value = "ID", dataType = "java.lang.Long")
@@ -76,6 +77,8 @@ public class MenuCond extends org.alvin.code.gen.beans.BaseCondition {
     private  String  permission ;//  权限
 		    	@io.swagger.annotations.ApiModelProperty(value = "类型", dataType = "java.lang.Integer")
     private  Integer  type ;//  类型
+		    	@io.swagger.annotations.ApiModelProperty(value = "系统码", dataType = "java.lang.String")
+    private  String  appCode ;//  系统码
 		    	//其他常用条件字段
 	@io.swagger.annotations.ApiModelProperty(value = "ID", dataType = "java.lang.List")
     private java.util.List<Long> idList;// 主键列表
