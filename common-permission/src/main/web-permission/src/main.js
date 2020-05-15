@@ -7,7 +7,9 @@ import VueHighlightJS from 'vue-highlightjs'
 import 'highlight.js/styles/googlecode.css'
 import VueTreeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import iconPicker from 'vue-fontawesome-elementui-icon-picker';
 
+Vue.use(iconPicker);
 Vue.component('v-treeselect', VueTreeselect )
 Vue.use(VueHighlightJS)
 import ElementUI from 'element-ui';

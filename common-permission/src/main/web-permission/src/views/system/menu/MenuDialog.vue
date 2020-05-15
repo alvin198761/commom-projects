@@ -21,64 +21,7 @@
                 </el-col>
             </el-row>
             <el-form-item label="菜单图标">
-                <el-popover
-                        v-model="showIconChooser"
-                        placement="bottom"
-                        width="700"
-                        trigger="click">
-                    <div>
-                        <el-input placeholder="请输入图标名称查询" suffix-icon="el-icon-search"></el-input>
-                        <el-row :gutter="10">
-                            <el-col :span="8">
-                                <el-button type="info" plain style="width: 100% ; margin-top: 10px"
-                                           @click="selectIcon('el-icon-edit')"><i class="el-icon-edit"></i>&nbsp;修改
-                                </el-button>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-button type="info" plain style="width: 100%; margin-top: 10px"><i
-                                        class="el-icon-plus"></i>&nbsp;添加
-                                </el-button>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-button type="info" plain style="width: 100%; margin-top: 10px"><i
-                                        class="el-icon-delete"></i>&nbsp;删除
-                                </el-button>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-button type="info" plain style="width: 100% ; margin-top: 10px"><i
-                                        class="el-icon-edit"></i>&nbsp;修改
-                                </el-button>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-button type="info" plain style="width: 100%; margin-top: 10px"><i
-                                        class="el-icon-plus"></i>&nbsp;添加
-                                </el-button>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-button type="info" plain style="width: 100%; margin-top: 10px"><i
-                                        class="el-icon-delete"></i>&nbsp;删除
-                                </el-button>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-button type="info" plain style="width: 100% ; margin-top: 10px"><i
-                                        class="el-icon-edit"></i>&nbsp;修改
-                                </el-button>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-button type="info" plain style="width: 100%; margin-top: 10px"><i
-                                        class="el-icon-plus"></i>&nbsp;添加
-                                </el-button>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-button type="info" plain style="width: 100%; margin-top: 10px"><i
-                                        class="el-icon-delete"></i>&nbsp;删除
-                                </el-button>
-                            </el-col>
-                        </el-row>
-                    </div>
-                    <el-input slot="reference" size="small" v-model="form.icon" clearable placeholder="请输菜单图标"
-                              :prefix-icon="form.icon"></el-input>
-                </el-popover>
+                  <icon-picker v-model="form.icon"></icon-picker>
 
             </el-form-item>
             <el-row :gutter="10">
